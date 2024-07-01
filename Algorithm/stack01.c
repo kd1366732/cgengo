@@ -1,0 +1,55 @@
+#include<stdio.h>
+#define STACKSIZE 8
+int stack[STACKSIZE];
+int sp = 0;
+
+void display(vpid);
+int push(int d);
+int pop(int* pd);
+
+main()
+{
+	int key, data, result;
+	do {
+		printf("\n\n◆プッシュはi、ポップはoを入力して>");
+		key = getche();
+		printf("\n");
+		
+		if (key == 'i') {
+			printf("データ入力>");
+			scanf("%d", &data);
+			result = push(data);
+			if (result == -1) {
+				printf("\n※※※スタックが一杯です※※※\n");
+			}
+			else {
+				display();
+			}
+		}
+		
+		if (key == 'o') {
+			result = pop(&data);
+			if (result == -1) {
+				printf("\n※※※スタックが空です※※※\n");
+			}
+			else {
+				printf("スタックからデータ(%d)を取り出しました\n", data);
+				display();
+			}
+		}
+	} while (key != 'e');
+}
+
+void display(void)
+{
+	int i;
+	printf("\n===現在のスタックの内容===\n");
+	for (i = 0; i < STACKSIZE; i++) {
+		printf("stack[%2d]は%d", i, stack[i]);
+		if (i == sp) {
+			printf("←spが示している所(現在spは%d)", sp); 
+		}
+		printf("\n");
+	}
+	return;
+}
